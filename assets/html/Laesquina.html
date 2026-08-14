@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Esquina — Panel de control</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estailos.css">
+</head>
+<body>
+  
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">SI</span>
+      <span class="brand-name">San Isidro</span>
+    </div>
+
+    <nav class="nav">
+      <span class="nav-label">Gestión</span>
+      <a class="nav-item" href="#clientes">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 20c1.2-3.6 4.2-5.5 8-5.5s6.8 1.9 8 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Clientes</span>
+      </a>
+      <a class="nav-item is-active" href="#productos">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 8.2 12 4l8.5 4.2v7.6L12 20l-8.5-4.2V8.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3.7 8.4 12 12.4l8.3-4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 12.4V20" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Productos</span>
+      </a>
+      <a class="nav-item" href="#proveedores">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9.5L12 4l8 5.5V20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Proveedores</span>
+      </a>
+      <a class="nav-item" href="#compras">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3.5 4h2l1.2 11.2A2 2 0 0 0 8.7 17h8.6a2 2 0 0 0 2-1.7L20.5 7H6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="20.5" r="1.3" fill="currentColor"/><circle cx="17" cy="20.5" r="1.3" fill="currentColor"/></svg>
+        <span>Compras</span>
+      </a>
+
+      <span class="nav-label nav-label-spaced">Cuenta</span>
+      <a class="nav-item nav-exit" href="#salir">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M15 4H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M10 12h11m0 0-3.2-3.2M21 12l-3.2 3.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Salir</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-owner">
+      <div class="owner-avatar">DM</div>
+      <div>
+        <div class="owner-name">Doña Marina</div>
+        <div class="owner-role">Dueña del negocio</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main class="main">
+
+    <header class="topbar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="m21 21-3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="Buscar producto, cliente o proveedor…">
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" aria-label="Notificaciones">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5H4.5S6 13 6 9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9.5 17a2.5 2.5 0 0 0 5 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="avatar">DM</div>
+      </div>
+    </header>
+
+    <!-- Greeting banner -->
+    <section class="banner">
+      <div class="banner-copy">
+        <span class="eyebrow">Hoy, martes</span>
+        <h1>Buenas, Alex.<br>La tienda va bien esta semana.</h1>
+        <p>Se vendieron <strong>134 unidades</strong> y <strong>4 productos</strong> están por agotarse.</p>
+        <a class="banner-cta" href="#inventario">Revisar inventario
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="banner-ring">
+        <svg viewBox="0 0 120 120" class="ring-svg">
+          <circle cx="60" cy="60" r="50" class="ring-track"/>
+          <circle cx="60" cy="60" r="50" class="ring-value"/>
+        </svg>
+        <div class="ring-text">
+          <span class="ring-number">82%</span>
+          <span class="ring-label">salud de stock</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick stats -->
+    <section class="stats-row">
+      <div class="stat-card">
+        <span class="stat-label">Productos activos</span>
+        <span class="stat-number">176</span>
+        <span class="stat-trend up">+6 este mes</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Ventas de hoy</span>
+        <span class="stat-number">C$ 4,820</span>
+        <span class="stat-trend up">+12% vs ayer</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Clientes registrados</span>
+        <span class="stat-number">58</span>
+        <span class="stat-trend">3 fiados pendientes</span>
+      </div>
+      <div class="stat-card stat-card-warn">
+        <span class="stat-label">Sin existencia</span>
+        <span class="stat-number">4</span>
+        <span class="stat-trend down">Revisar hoy</span>
+      </div>
+    </section>
+
+    <!-- Content grid -->
+    <section class="grid">
+
+      <!-- Top 10 productos -->
+      <div class="panel panel-top">
+        <div class="panel-head">
+          <div>
+            <h2>Los más vendidos</h2>
+            <p class="panel-sub">Unidades vendidas esta semana</p>
+          </div>
+          <a class="panel-link" href="#productos">Ver todos</a>
+        </div>
+
+        <ol class="rank-list">
+          <li class="rank-row">
+            <span class="rank-pos">01</span>
+            <span class="rank-name">Coca-Cola 2L</span>
+            <span class="rank-bar"><span style="width:100%"></span></span>
+            <span class="rank-units">96 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">02</span>
+            <span class="rank-name">Tortillas Ricas paq.</span>
+            <span class="rank-bar"><span style="width:88%"></span></span>
+            <span class="rank-units">84 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">03</span>
+            <span class="rank-name">Arroz Excelencia 1lb</span>
+            <span class="rank-bar"><span style="width:79%"></span></span>
+            <span class="rank-units">76 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">04</span>
+            <span class="rank-name">Toña 6-pack</span>
+            <span class="rank-bar"><span style="width:71%"></span></span>
+            <span class="rank-units">68 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">05</span>
+            <span class="rank-name">Huevos cubeta x30</span>
+            <span class="rank-bar"><span style="width:64%"></span></span>
+            <span class="rank-units">61 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">06</span>
+            <span class="rank-name">Frijol rojo 1lb</span>
+            <span class="rank-bar"><span style="width:58%"></span></span>
+            <span class="rank-units">55 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">07</span>
+            <span class="rank-name">Jabón Protex</span>
+            <span class="rank-bar"><span style="width:49%"></span></span>
+            <span class="rank-units">47 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">08</span>
+            <span class="rank-name">Café Presto sobre</span>
+            <span class="rank-bar"><span style="width:45%"></span></span>
+            <span class="rank-units">43 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">09</span>
+            <span class="rank-name">Aceite Naturas 1L</span>
+            <span class="rank-bar"><span style="width:38%"></span></span>
+            <span class="rank-units">36 uds</span>
+          </li>
+          <li class="rank-row">
+            <span class="rank-pos">10</span>
+            <span class="rank-name">Pan Bimbo molde</span>
+            <span class="rank-bar"><span style="width:33%"></span></span>
+            <span class="rank-units">31 uds</span>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Right column -->
+      <div class="panel-stack">
+
+        <!-- Sin stock -->
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Sin existencia</h2>
+              <p class="panel-sub">Reponer cuanto antes</p>
+            </div>
+            <span class="badge badge-danger">4</span>
+          </div>
+          <ul class="stock-list">
+            <li class="stock-row">
+              <span class="stock-dot dot-danger"></span>
+              <div class="stock-info">
+                <span class="stock-name">Cemento Canal 42.5kg</span>
+                <span class="stock-meta">Proveedor: Distribuidora Nica</span>
+              </div>
+              <span class="stock-qty">0 uds</span>
+            </li>
+            <li class="stock-row">
+              <span class="stock-dot dot-danger"></span>
+              <div class="stock-info">
+                <span class="stock-name">Leche Estrella 1L</span>
+                <span class="stock-meta">Proveedor: Lácteos del Norte</span>
+              </div>
+              <span class="stock-qty">0 uds</span>
+            </li>
+            <li class="stock-row">
+              <span class="stock-dot dot-warn"></span>
+              <div class="stock-info">
+                <span class="stock-name">Detergente Xedra 1kg</span>
+                <span class="stock-meta">Quedan 2 unidades</span>
+              </div>
+              <span class="stock-qty">2 uds</span>
+            </li>
+            <li class="stock-row">
+              <span class="stock-dot dot-warn"></span>
+              <div class="stock-info">
+                <span class="stock-name">Gas butano 25lb</span>
+                <span class="stock-meta">Quedan 1 unidad</span>
+              </div>
+              <span class="stock-qty">1 ud</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="panel">
+          <div class="panel-head">
+            <div>
+              <h2>Proveedores activos</h2>
+              <p class="panel-sub">Próxima entrega</p>
+            </div>
+            <a class="panel-link" href="#proveedores">Ver todos</a>
+          </div>
+          <ul class="provider-list">
+            <li class="provider-row">
+              <span class="provider-avatar">DN</span>
+              <div class="provider-info">
+                <span class="provider-name">Distribuidora Nicaragüense</span>
+                <span class="provider-meta">Llega mañana</span>
+              </div>
+            </li>
+            <li class="provider-row">
+              <span class="provider-avatar">CS</span>
+              <div class="provider-info">
+                <span class="provider-name">Café Solar</span>
+                <span class="provider-meta">Jueves, 9:00 AM</span>
+              </div>
+            </li>
+            <li class="provider-row">
+              <span class="provider-avatar">LN</span>
+              <div class="provider-info">
+                <span class="provider-name">Lácteos del Norte</span>
+                <span class="provider-meta">Viernes, 7:30 AM</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
