@@ -1,26 +1,46 @@
 <!DOCTYPE html>
+
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glassmorphism Login Form | CodingNepal</title>
-  <link rel="stylesheet" href="Login.css">
+  <title>Inicio de Sesión | San Isidro</title>
+  <link rel="stylesheet" href="../css/Login.css">
 </head>
 <body>
+
   <div class="wrapper">
-    <form action="#">
-      <h2>Bienvenido/a</h2>
-        <div class="input-field">
-        <input type="text" placeholder="Usuario (Ej: John Doe)" required>
-        
-      </div>
-      <div class="input-field">
-        <input type="password" placeholder="Contraseña (Ej: 1234)" required>
-      </div>
-      <button type="submit"> Iniciar Sesión</button>
-      <img src="imagenes/isidro1.png" alt="Logo" class="logo">
-    
-    </form>
+
+<form action="../../controllers/LoginProcess.php" method="POST">
+
+  <h2>Bienvenido/a</h2>
+
+  <div class="input-field">
+    <input
+      type="text"
+      name="usuario"
+      placeholder="Usuario (Ej: John Doe)"
+      required
+    >
   </div>
+
+  <div class="input-field">
+    <input
+      type="password"
+      name="password"
+      placeholder="Contraseña (Ej: 1234)"
+      required
+    >
+  </div>
+
+  <button type="submit">Iniciar Sesión</button>
+
+  <img src="../images/isidro1.png" alt="Logo" class="logo">
+
+</form>
+```
+
+  </div>
+
 </body>
 </html>
