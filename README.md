@@ -32,7 +32,7 @@ En esta etapa se implementó el sistema de autenticación y acceso al sistema me
 
 ---
 
-## Implementación actual
+## Implementación actual (03-10-2026)
 
 ### 1. Base de datos
 

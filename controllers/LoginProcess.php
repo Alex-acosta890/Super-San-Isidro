@@ -44,7 +44,7 @@ try {
         $_SESSION["id_rol"] = $usuarioEncontrado["id_rol"];
         $_SESSION["rol"] = $usuarioEncontrado["nombre_rol"];
 
-        header("Location: ../assets/html/Dashboard.php");
+        header("Location: ../assets/html/Laesquina.php");
         exit;
 
     } else {

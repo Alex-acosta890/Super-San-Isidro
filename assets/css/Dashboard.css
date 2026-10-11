@@ -1,208 +1,198 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 @font-face {
-    font-family: 'LexendDecaBold';
-    src: url('../fonts/LexendDecaBold.ttf');
+  font-family: "LexendDecaBold";
+  src: url("../fonts/LexendDecaBold.ttf");
 }
 
 @font-face {
-    font-family: 'LexendDecaExtraLight';
-    src: url('../fonts/LexendDecaExtraLight.ttf') format('truetype');
+  font-family: "LexendDecaExtraLight";
+  src: url("../fonts/LexendDecaExtraLight.ttf") format("truetype");
 }
 
 body {
-    min-height: 100vh;
-    font-family: 'LexendDecaExtraLight';
-    background-image: url('../images/asdx.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: white;
+  min-height: 100vh;
+  font-family: "LexendDecaExtraLight";
+  background-image: url("../images/qwall1.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white;
 }
-
 
 /* ===== BARRA SUPERIOR ===== */
 
 .topbar {
-    width: 100%;
-    padding: 20px 45px;
+  width: 100%;
+  padding: 20px 45px;
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-    background: rgba(5, 5, 44, 0.75);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(5, 5, 44, 0.75);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 }
 
 .brand h1 {
-    font-family: 'LexendDecaBold';
-    font-size: 25px;
+  font-family: "LexendDecaBold";
+  font-size: 25px;
 }
 
 .brand span {
-    font-size: 13px;
-    opacity: 0.75;
+  font-size: 13px;
+  opacity: 0.75;
 }
-
 
 /* ===== INFORMACIÓN DEL USUARIO ===== */
 
 .user-info {
-    display: flex;
-    align-items: center;
-    text-align: right;
+  display: flex;
+  align-items: center;
+  text-align: right;
 }
 
 .user-info strong {
-    display: block;
-    font-family: 'LexendDecaBold';
-    font-size: 15px;
+  display: block;
+  font-family: "LexendDecaBold";
+  font-size: 15px;
 }
 
 .user-info span {
-    display: block;
-    margin-top: 3px;
-    font-size: 12px;
-    opacity: 0.75;
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  opacity: 0.75;
 }
-
 
 /* ===== CONTENIDO ===== */
 
 .dashboard {
-    width: 90%;
-    max-width: 1200px;
-    margin: 50px auto;
+  width: 90%;
+  max-width: 1200px;
+  margin: 50px auto;
 }
-
 
 /* ===== BIENVENIDA ===== */
 
 .welcome {
-    margin-bottom: 35px;
+  margin-bottom: 35px;
 }
 
 .welcome-label {
-    font-size: 13px;
-    opacity: 0.7;
-    margin-bottom: 8px;
+  font-size: 13px;
+  opacity: 0.7;
+  margin-bottom: 8px;
 }
 
 .welcome h2 {
-    font-family: 'LexendDecaBold';
-    font-size: 32px;
-    margin-bottom: 10px;
+  font-family: "LexendDecaBold";
+  font-size: 32px;
+  margin-bottom: 10px;
 }
 
 .welcome p:last-child {
-    font-size: 15px;
-    opacity: 0.8;
+  font-size: 15px;
+  opacity: 0.8;
 }
-
 
 /* ===== MÓDULOS ===== */
 
 .modules {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .module-card {
-    min-height: 160px;
-    padding: 25px;
+  min-height: 160px;
+  padding: 25px;
 
-    background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.12);
 
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 18px;
 
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
 
-    box-shadow:
-        0 15px 30px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 
-    transition: transform 0.25s ease,
-                background 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
 .module-card:hover {
-    transform: translateY(-5px);
-    background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .module-card h3 {
-    font-family: 'LexendDecaBold';
-    font-size: 17px;
-    margin-bottom: 15px;
+  font-family: "LexendDecaBold";
+  font-size: 17px;
+  margin-bottom: 15px;
 }
 
 .module-card p {
-    font-size: 13px;
-    line-height: 1.6;
-    opacity: 0.8;
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.8;
 }
-
 
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 1000px) {
-
-    .modules {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
+  .modules {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 600px) {
+  .topbar {
+    padding: 18px 25px;
+  }
 
-    .topbar {
-        padding: 18px 25px;
-    }
+  .dashboard {
+    width: 90%;
+    margin: 35px auto;
+  }
 
-    .dashboard {
-        width: 90%;
-        margin: 35px auto;
-    }
+  .modules {
+    grid-template-columns: 1fr;
+  }
 
-    .modules {
-        grid-template-columns: 1fr;
-    }
-
-    .welcome h2 {
-        font-size: 26px;
-    }
-
+  .welcome h2 {
+    font-size: 26px;
+  }
 }
 
-
 .logout {
-    margin-left: 20px;
-    padding: 9px 15px;
+  margin-left: 20px;
+  padding: 9px 15px;
 
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 
-    font-size: 13px;
+  font-size: 13px;
 
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
 
-    background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 
-    transition: 0.25s ease;
+  transition: 0.25s ease;
 }
 
 .logout:hover {
-    background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.2);
 }
