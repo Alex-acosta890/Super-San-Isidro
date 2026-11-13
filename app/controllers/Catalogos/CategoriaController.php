@@ -1,18 +1,19 @@
 
 <?php
+require_once dirname(__DIR__, 3) . "/config/app.php";
 
 session_start();
 
 if (!isset($_SESSION["id_usuario"])) {
-    header("Location: ../../assets/html/Login.php");
+    header("Location: " . BASE_URL . "/app/views/auth/Login.php");
     exit;
 }
 
-require_once "../../config/conexion.php";
-require_once "../../models/Categoria.php";
+require_once ROOT_PATH . "/config/conexion.php";
+require_once ROOT_PATH . "/app/models/Catalogos/Categoria.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../../assets/html/Categorias.php");
+    header("Location: " . BASE_URL . "/app/views/catalogos/Categorias.php");
     exit;
 }
 
@@ -23,7 +24,7 @@ function regresar(string $tipo, string $mensaje): void
         "texto" => $mensaje
     ];
 
-    header("Location: ../../assets/html/Categorias.php");
+    header("Location: " . BASE_URL . "/app/views/catalogos/Categorias.php");
     exit;
 }
 

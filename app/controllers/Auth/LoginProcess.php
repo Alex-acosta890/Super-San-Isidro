@@ -1,11 +1,14 @@
+
 <?php
+
+require_once dirname(__DIR__, 3) . "/config/app.php";
 
 session_start();
 
-require_once "../config/conexion.php";
+require_once ROOT_PATH . "/config/conexion.php";
 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: ../assets/html/Login.html");
+    header("Location: " . BASE_URL . "/app/views/auth/Login.php");
     exit;
 }
 
@@ -18,7 +21,7 @@ if ($usuario === "" || $password === "") {
 
 try {
 
-    $sql = "SELECT 
+    $sql = "SELECT
                 u.id_usuario,
                 u.nombre,
                 u.usuario,
@@ -26,7 +29,7 @@ try {
                 u.id_rol,
                 r.nombre_rol
             FROM usuarios u
-            INNER JOIN roles r 
+            INNER JOIN roles r
                 ON u.id_rol = r.id_rol
             WHERE u.usuario = :usuario";
 
@@ -36,7 +39,12 @@ try {
 
     $usuarioEncontrado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($usuarioEncontrado && password_verify($password, $usuarioEncontrado["password"])) {
+    if (
+        $usuarioEncontrado &&
+        password_verify($password, $usuarioEncontrado["password"])
+    ) {
+
+        session_regenerate_id(true);
 
         $_SESSION["id_usuario"] = $usuarioEncontrado["id_usuario"];
         $_SESSION["usuario"] = $usuarioEncontrado["usuario"];
@@ -44,7 +52,7 @@ try {
         $_SESSION["id_rol"] = $usuarioEncontrado["id_rol"];
         $_SESSION["rol"] = $usuarioEncontrado["nombre_rol"];
 
-        header("Location: ../assets/html/Laesquina.php");
+        header("Location: " . BASE_URL . "/app/views/dashboard/Laesquina.php");
         exit;
 
     } else {
@@ -55,6 +63,7 @@ try {
 
 } catch (PDOException $e) {
 
-    die("Error al iniciar sesión: " . $e->getMessage());
+    error_log("Error al iniciar sesión: " . $e->getMessage());
+    die("Error al iniciar sesión.");
 
 }

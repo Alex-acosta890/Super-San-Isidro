@@ -1,14 +1,15 @@
 
 <?php
+require_once dirname(__DIR__, 3) . '/config/app.php';
 session_start();
 
 if (!isset($_SESSION["id_usuario"])) {
-    header("Location: Login.php");
+    header("Location: " . BASE_URL . "/app/views/auth/Login.php");
     exit;
 }
 
-require_once "../../config/conexion.php";
-require_once "../../models/UnidadMedida.php";
+require_once ROOT_PATH . "/config/conexion.php";
+require_once ROOT_PATH . "/app/models/Catalogos/UnidadMedida.php";
 
 if (empty($_SESSION["token_unidad"])) {
     $_SESSION["token_unidad"] = bin2hex(random_bytes(32));
@@ -38,7 +39,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unidades de medida | San Isidro</title>
 
-    <link rel="stylesheet" href="../css/Catalogos.css">
+    <link rel="stylesheet" href="<?= ASSET_URL ?>/css/Catalogos.css?v=<?= filemtime(ROOT_PATH . '/public/assets/css/Catalogos.css') ?>">
 </head>
 
 <body>
@@ -47,7 +48,7 @@ try {
 
         <header class="catalogo-header">
             <div>
-                <span class="catalogo-etiqueta">CATÁLOGOS</span>
+                <span class="catalogo-etiqueta">CAT├üLOGOS</span>
                 <h1>Unidades de medida</h1>
                 <p>Administra las unidades utilizadas en las operaciones del sistema.</p>
             </div>
@@ -66,7 +67,7 @@ try {
         <section class="catalogo-estadisticas">
 
             <article class="estadistica-card">
-                <div class="estadistica-icono">⚖</div>
+                <div class="estadistica-icono"></div>
                 <div>
                     <span>Total de unidades</span>
                     <strong><?= $totalUnidades ?></strong>
@@ -160,7 +161,7 @@ try {
                 </table>
 
                 <div id="sinResultados" class="tabla-vacia" hidden>
-                    No se encontraron unidades que coincidan con la búsqueda.
+                    No se encontraron unidades que coincidan con la b├║squeda.
                 </div>
             </div>
 
@@ -177,7 +178,7 @@ try {
 
             <div class="modal-header">
                 <div>
-                    <span class="catalogo-etiqueta">CATÁLOGO</span>
+                    <span class="catalogo-etiqueta">CAT├üLOGO</span>
                     <h2 id="tituloModal">Nueva unidad de medida</h2>
                 </div>
 
@@ -187,7 +188,7 @@ try {
             </div>
 
             <form
-                action="../../controllers/catalogos/UnidadMedidaController.php"
+                action="<?= BASE_URL ?>/app/controllers/Catalogos/UnidadMedidaController.php"
                 method="POST"
                 id="formUnidad"
             >
@@ -323,7 +324,7 @@ try {
         });
 
 
-        // Búsqueda en tiempo real
+        // B├║squeda en tiempo real
 
         const buscador = document.getElementById("buscarUnidad");
         const filas = document.querySelectorAll("#tablaUnidades tr");

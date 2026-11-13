@@ -1,14 +1,15 @@
 
 <?php
+require_once dirname(__DIR__, 3) . '/config/app.php';
 session_start();
 
 if (!isset($_SESSION["id_usuario"])) {
-    header("Location: Login.php");
+    header("Location: " . BASE_URL . "/app/views/auth/Login.php");
     exit;
 }
 
-require_once "../../config/conexion.php";
-require_once "../../models/Categoria.php";
+require_once ROOT_PATH . "/config/conexion.php";
+require_once ROOT_PATH . "/app/models/Catalogos/Categoria.php";
 
 if (empty($_SESSION["token_categoria"])) {
     $_SESSION["token_categoria"] = bin2hex(random_bytes(32));
@@ -48,7 +49,7 @@ try {
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet"
-          href="../css/Catalogos.css?v=<?php echo filemtime(__DIR__ . '/../css/Catalogos.css'); ?>">
+          href="<?= ASSET_URL ?>/css/Catalogos.css?v=<?= filemtime(ROOT_PATH . '/public/assets/css/Catalogos.css') ?>">
 </head>
 
 <body>
@@ -57,12 +58,12 @@ try {
 
     <header class="catalog-header">
         <div>
-            <span class="eyebrow">CONFIGURACIÓN</span>
+            <span class="eyebrow">CONFIGURACI├ôN</span>
             <h1>Categorías de artículos</h1>
             <p>Administra las categorías utilizadas para clasificar los artículos.</p>
         </div>
 
-        <a href="Laesquina.php" class="btn-secondary">
+        <a href="<?= BASE_URL ?>/app/views/dashboard/Laesquina.php" class="btn-secondary">
             Volver al panel
         </a>
     </header>
@@ -97,7 +98,7 @@ try {
         <div class="panel-heading">
             <div>
                 <h2>Listado de categorías</h2>
-                <p>Administra los registros de tu catálogo.</p>
+                <p>Administra los registros de tu cat├ílogo.</p>
             </div>
 
             <button class="btn-primary" id="btnNuevaCategoria">
@@ -170,9 +171,9 @@ try {
                                 </button>
 
                                 <form
-                                    action="../../controllers/catalogos/CategoriaController.php"
+                                    action="<?= BASE_URL ?>/app/controllers/Catalogos/CategoriaController.php"
                                     method="POST"
-                                    onsubmit="return confirm('¿Desea cambiar el estado de esta categoría?');"
+                                    onsubmit="return confirm('┬┐Desea cambiar el estado de esta categoría?');"
                                 >
                                     <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                                     <input type="hidden" name="accion" value="cambiar_estado">
@@ -208,14 +209,14 @@ try {
 
 </div>
 
-<!-- MODAL CATEGORÍA -->
+<!-- MODAL CATEGOR├ìA -->
 <div class="modal-overlay" id="modalCategoria">
 
     <div class="modal">
 
         <div class="modal-header">
             <div>
-                <span class="eyebrow">GESTIÓN DE CATÁLOGOS</span>
+                <span class="eyebrow">GESTI├ôN DE CAT├üLOGOS</span>
                 <h2 id="tituloModal">Nueva categoría</h2>
             </div>
 
@@ -225,7 +226,7 @@ try {
         </div>
 
         <form
-            action="../../controllers/catalogos/CategoriaController.php"
+            action="<?= BASE_URL ?>/app/controllers/Catalogos/CategoriaController.php"
             method="POST"
             id="formCategoria"
         >
@@ -243,7 +244,7 @@ try {
                     name="nombre"
                     maxlength="100"
                     required
-                    placeholder="Ej. Café"
+                    placeholder="Ej. Caf├⌐"
                 >
             </div>
 

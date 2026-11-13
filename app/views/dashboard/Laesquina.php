@@ -7,12 +7,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/estailos.css?v=<?php echo filemtime('../css/estailos.css'); ?>">
+<?php
+require_once dirname(__DIR__, 3) . "/config/app.php";
+?>
+
+<link
+    rel="stylesheet"
+    href="<?= ASSET_URL ?>/css/estailos.css?v=<?= filemtime(ROOT_PATH . '/public/assets/css/estailos.css') ?>"
+>
+
+<script>
+  try {
+    if (localStorage.getItem('theme') === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+</script>
 </head>
 <body>
 
 <!-- ===== Iconos (sprite) ===== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72 1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></symbol>
   <defs>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
     <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2l1.5 10h11L20 7H6"/><circle cx="9" cy="19" r="1.3"/><circle cx="17" cy="19" r="1.3"/></symbol>
@@ -66,7 +83,7 @@
       <!---<a class="nav-item" href="#facturas"><svg class="ic"><use href="#i-receipt"/></svg><span>Facturas</span></a> --->
 
       <span class="nav-label">Inventario</span>
-      <a class="nav-item" href="inventario.html">
+      <a class="nav-item" 	href="<?= BASE_URL ?>/app/views/inventario/inventario.html">
   <svg class="ic"><use href="#i-box"/></svg>
   <span>Existencias</span>
 </a>
@@ -78,8 +95,8 @@
       <a class="nav-item" href="#mermas"><svg class="ic"><use href="#i-alert"/></svg><span>Mermas</span></a>
 
       <span class="nav-label">Terceros</span>
-      <a class="nav-item" href="Proveedores.html"><svg class="ic"><use href="#i-truck"/></svg><span>Proveedores</span></a>
-      <a class="nav-item" href="Clientes.html"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
+      <a class="nav-item" href="<?= BASE_URL ?>/app/views/proveedores/Proveedores.html"><svg class="ic"><use href="#i-truck"/></svg><span>Proveedores</span></a>
+      <a class="nav-item" href="<?= BASE_URL ?>/app/views/clientes/Clientes.html"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
 
       <span class="nav-label">Configuración</span>
       <!---<a class="nav-item" href="#categorias"><svg class="ic"><use href="#i-grid"/></svg><span>Categorías</span></a>--->
@@ -98,7 +115,7 @@
         </div>
         -->
       </div>
-      <a class="nav-item nav-exit" href="../../controllers/Logout.php">
+      <a class="nav-item nav-exit" href="<?= BASE_URL ?>/app/controllers/Auth/logout.php">
         <svg class="ic"><use href="#i-logout"/></svg><span>Cerrar sesión</span>
       </a>
     </div>
@@ -112,7 +129,11 @@
         <svg class="ic"><use href="#i-search"/></svg>
         <input type="text" placeholder="Buscar ítem, lote, proveedor o cliente…">
       </div>
-      <div class="topbar-right">
+     <div class="topbar-right">
+        <!-- Botón para alternar Modo Oscuro / Claro -->
+        <button class="icon-btn" id="theme-toggle" aria-label="Cambiar tema">
+          <svg class="ic"><use href="#i-moon"/></svg>
+        </button>
         <button class="icon-btn" aria-label="Notificaciones">
           <svg class="ic"><use href="#i-bell"/></svg>
           <span class="dot"></span>
@@ -389,5 +410,35 @@
 
   </main>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.documentElement;
+    const toggleBtn = document.getElementById('theme-toggle');
+    const icon = toggleBtn.querySelector('use');
+
+    const applyTheme = (theme) => {
+      if (theme === 'dark') {
+        root.setAttribute('data-theme', 'dark');
+        icon.setAttribute('href', '#i-sun');
+      } else {
+        root.removeAttribute('data-theme');
+        icon.setAttribute('href', '#i-moon');
+      }
+      try { localStorage.setItem('theme', theme); } catch (e) {}
+    };
+
+    let saved = 'light';
+    try { saved = localStorage.getItem('theme') || 'light'; } catch (e) {}
+    applyTheme(saved);
+
+    toggleBtn.addEventListener('click', () => {
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  });
+</script>
+
 </body>
+
+
 </html>

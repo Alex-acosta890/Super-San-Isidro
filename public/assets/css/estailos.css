@@ -810,3 +810,44 @@ input {
     display: none;
   }
 }
+/* =========================================================
+   TEMA OSCURO
+   ========================================================= */
+:root[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1e293b;
+  --surface-2: #334155;
+  --border: #334155;
+
+  --sidebar: #090d16;
+  --sidebar-hover: #1e293b;
+  --sidebar-active: #2f8f4e;
+  --sidebar-text: #94a3b8;
+  --sidebar-label: #64748b;
+
+  --dark-panel: #1e293b;
+  --dark-border: #334155;
+
+  --accent: #2f8f4e;
+  --accent-dark: #22c55e;
+  --accent-soft: rgba(47, 143, 78, 0.15);
+  --caramel: #f59e0b;
+
+  --text: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-faint: #64748b;
+
+  --good: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+}
+
+:root[data-theme="dark"] .banner {
+  background:
+    radial-gradient(
+      120% 160% at 100% 0%,
+      rgba(245, 158, 11, 0.18),
+      transparent 55%
+    ),
+    linear-gradient(155deg, #166534, #0b2a1a);
+}
