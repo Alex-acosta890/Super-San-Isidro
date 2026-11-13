@@ -1,7 +1,7 @@
 <?php
 
 $servidor = "DESKTOP-P54CACR";
-$baseDatos = "PruebaLaragonSQ1L";
+$baseDatos = "AlimentosSanIsidro";
 
 try {
 

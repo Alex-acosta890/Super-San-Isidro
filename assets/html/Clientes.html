@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clients</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --side: #ffd60a;
+        --side2: #f5c400;
+        --bg: #fffbea;
+        --card: #ffffff;
+        --text: #2b2b2b;
+        --muted: #8a8a8a;
+        --head: #ffd60a;
+        --headtxt: #2b2b2b;
+        --accent: #ffd60a;
+        --accentTxt: #2b2b2b;
+        --input: #ffffff;
+        --border: #ececec;
+        --ok: #d9f7e3;
+        --okTxt: #17a34a;
+        --bad: #fde2e2;
+        --badTxt: #dc2626;
+        --edit: #ffc107;
+        --del: #ef2b2b;
+        --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+      }
+      [data-theme="dark"] {
+        --side: #10233f;
+        --side2: #0b1a30;
+        --bg: #0a1424;
+        --card: #12233d;
+        --text: #e6edf8;
+        --muted: #8ea3c4;
+        --head: #17315a;
+        --headtxt: #e6edf8;
+        --accent: #3b82f6;
+        --accentTxt: #fff;
+        --input: #0d1b31;
+        --border: #1f3558;
+        --ok: #0f3a2a;
+        --okTxt: #4ade80;
+        --bad: #4a1d24;
+        --badTxt: #f87171;
+        --edit: #2f6fd6;
+        --del: #c0392b;
+        --shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Poppins", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      aside {
+        width: 260px;
+        background: var(--side);
+        padding: 22px 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      .logo {
+        font-weight: 700;
+        font-size: 20px;
+        text-align: center;
+        line-height: 1.1;
+      }
+      .logo small {
+        display: block;
+        font-weight: 500;
+        font-size: 11px;
+        opacity: 0.7;
+      }
+      [data-theme="dark"] .logo {
+        color: #e6edf8;
+      }
+      form {
+        background: var(--side2);
+        border-radius: 16px;
+        padding: 16px;
+        width: 100%;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      [data-theme="dark"] form {
+        background: #0b1a30;
+      }
+      form h3 {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      label {
+        font-size: 11px;
+        font-weight: 600;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"] {
+        width: 100%;
+        padding: 9px 10px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--input);
+        color: var(--text);
+        font: inherit;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      input:focus {
+        outline: 2px solid var(--accent);
+      }
+      .err {
+        color: var(--badTxt);
+        font-size: 10px;
+        min-height: 12px;
+        margin: -4px 0 4px;
+      }
+      .btn {
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        font: inherit;
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        background: var(--accent);
+        color: var(--accentTxt);
+        transition: transform 0.1s;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 1px solid var(--muted);
+        color: var(--text);
+        margin-top: 4px;
+      }
+      main {
+        flex: 1;
+        padding: 22px 28px;
+        min-width: 0;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      header h1 {
+        font-size: 22px;
+      }
+      header p {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .admin {
+        background: var(--head);
+        color: var(--headtxt);
+        padding: 10px 40px;
+        border-radius: 12px;
+        font-weight: 600;
+        box-shadow: var(--shadow);
+      }
+      .icon-btn {
+        border: none;
+        background: var(--card);
+        color: var(--text);
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 17px;
+        box-shadow: var(--shadow);
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 14px;
+        margin: 18px 0;
+      }
+      .stat {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px;
+        box-shadow: var(--shadow);
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .stat span {
+        font-size: 11px;
+        color: var(--muted);
+      }
+      .stat b {
+        font-size: 24px;
+      }
+      .stat small {
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .tools {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+      #search {
+        max-width: 320px;
+        border-radius: 20px;
+        margin: 0;
+        background: var(--card);
+      }
+      .switch {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .switch input {
+        display: none;
+      }
+      .switch i {
+        width: 34px;
+        height: 18px;
+        border-radius: 10px;
+        background: var(--border);
+        position: relative;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .switch i::after {
+        content: "";
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        top: 2px;
+        left: 2px;
+        transition: 0.2s;
+      }
+      .switch input:checked + i {
+        background: var(--accent);
+      }
+      .switch input:checked + i::after {
+        left: 18px;
+      }
+      .table-wrap {
+        background: var(--card);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        overflow-x: auto;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 12px;
+        min-width: 640px;
+      }
+      th {
+        background: var(--head);
+        color: var(--headtxt);
+        padding: 10px;
+        font-weight: 600;
+      }
+      td {
+        padding: 11px 10px;
+        text-align: center;
+        border-bottom: 1px solid var(--border);
+      }
+      tr.inactive td {
+        opacity: 0.6;
+      }
+      .badge {
+        padding: 3px 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 11px;
+      }
+      .badge.activo {
+        background: var(--ok);
+        color: var(--okTxt);
+      }
+      .badge.inactivo {
+        background: var(--bad);
+        color: var(--badTxt);
+      }
+      .act {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+      }
+      .act button {
+        width: 28px;
+        height: 28px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        color: #fff;
+        font-size: 14px;
+      }
+      .edit {
+        background: var(--edit);
+      }
+      .del {
+        background: var(--del);
+      }
+      .restore {
+        background: #16a34a;
+      }
+      .empty {
+        padding: 28px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 13px;
+      }
+      .pager {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        align-items: center;
+        padding: 12px;
+      }
+      .pager button {
+        border: none;
+        background: var(--accent);
+        color: var(--accentTxt);
+        border-radius: 6px;
+        padding: 6px 12px;
+        font: inherit;
+        font-size: 11px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .pager button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+      .report {
+        cursor: pointer;
+      }
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--card);
+        color: var(--text);
+        padding: 10px 16px;
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        font-size: 12px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition: 0.25s;
+        pointer-events: none;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: none;
+      }
+      dialog {
+        border: none;
+        border-radius: 14px;
+        padding: 22px;
+        background: var(--card);
+        color: var(--text);
+        box-shadow: var(--shadow);
+        max-width: 340px;
+        margin: auto;
+      }
+      dialog::backdrop {
+        background: rgba(0, 0, 0, 0.5);
+      }
+      dialog p {
+        font-size: 13px;
+        margin-bottom: 14px;
+      }
+      dialog div {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      @media (max-width: 800px) {
+        body {
+          flex-direction: column;
+        }
+        aside {
+          width: 100%;
+          height: auto;
+          position: static;
+        }
+      }
+      @media print {
+        aside,
+        .tools,
+        .pager,
+        .act,
+        header .icon-btn,
+        .stats,
+        .toast {
+          display: none !important;
+        }
+        body {
+          background: #fff;
+          color: #000;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="logo">Alimentos<br />San Isidro<small>Clients</small></div>
+      <form id="form" novalidate>
+        <h3 id="formTitle">New client</h3>
+        <label for="nombre">First name</label>
+        <input type="text" id="nombre" placeholder="e.g. Carlos" />
+        <div class="err" data-for="nombre"></div>
+        <label for="apellido">Last name</label>
+        <input type="text" id="apellido" placeholder="e.g. Pérez López" />
+        <div class="err" data-for="apellido"></div>
+        <label for="telefono">Phone</label>
+        <input type="tel" id="telefono" placeholder="e.g. 88889999" />
+        <div class="err" data-for="telefono"></div>
+        <label for="correo">Email</label>
+        <input type="email" id="correo" placeholder="e.g. client@gmail.com" />
+        <div class="err" data-for="correo"></div>
+        <button class="btn" type="submit" id="submitBtn">Add client</button>
+        <button class="btn ghost" type="button" id="cancelBtn" hidden>
+          Cancel edit
+        </button>
+      </form>
+    </aside>
+
+    <main>
+      <header>
+        <div>
+          <h1>Clients</h1>
+          <p>Manage your clients quickly and visually.</p>
+        </div>
+        <div class="admin">Admin</div>
+        <button
+          class="icon-btn"
+          id="themeBtn"
+          title="Toggle dark mode"
+          aria-label="Toggle dark mode"
+        >
+          🌙
+        </button>
+      </header>
+
+      <section class="stats">
+        <div class="stat">
+          <span>Total clients</span><b id="sTotal">0</b
+          ><small>Clients registered in the system</small>
+        </div>
+        <div class="stat">
+          <span>Active</span><b id="sActive">0</b
+          ><small>Clients with active status</small>
+        </div>
+        <div class="stat">
+          <span>Inactive</span><b id="sInactive">0</b
+          ><small>Disabled clients</small>
+        </div>
+        <div class="stat report" id="pdfBtn">
+          <span>Full report</span><b>Clients</b
+          ><small>Download PDF (print)</small>
+        </div>
+      </section>
+
+      <div class="tools">
+        <input
+          type="text"
+          id="search"
+          placeholder="Search by name, last name or email…"
+        />
+        <label class="switch"
+          >Show inactive <input type="checkbox" id="showInactive" /><i></i>
+        </label>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Created by</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+        <div class="empty" id="empty" hidden>No clients found.</div>
+        <div class="pager">
+          <button id="prev">‹</button
+          ><span id="pageInfo" style="font-size: 11px; font-weight: 600"></span
+          ><button id="next">›</button>
+        </div>
+      </div>
+    </main>
+
+    <dialog id="confirm">
+      <p id="confirmText"></p>
+      <div>
+        <button class="btn ghost" id="noBtn">Cancel</button
+        ><button
+          class="btn"
+          id="yesBtn"
+          style="background: var(--del); color: #fff"
+        >
+          Confirm
+        </button>
+      </div>
+    </dialog>
+    <div class="toast" id="toast"></div>
+
+    <script>
+      const PER_PAGE = 5,
+        KEY = "clients_v1",
+        THEME = "clients_theme";
+      const $ = (id) => document.getElementById(id);
+      const seed = [
+        {
+          id: 1,
+          nombre: "Lionel",
+          apellido: "Messi",
+          telefono: "87653344",
+          correo: "Messi@gmail.com",
+          activo: true,
+          por: "Admin",
+        },
+        {
+          id: 2,
+          nombre: "Carles",
+          apellido: "Puyol",
+          telefono: "87980999",
+          correo: "Horacio@gmail.com",
+          activo: true,
+          por: "Admin",
+        },
+        {
+          id: 3,
+          nombre: "Samuel",
+          apellido: "Lino",
+          telefono: "12345699",
+          correo: "ElSamueljaja@gmail.com",
+          activo: true,
+          por: "Admin",
+        },
+      ];
+      let clients = load(),
+        page = 1,
+        editId = null,
+        pendingAction = null;
+
+      function load() {
+        try {
+          return JSON.parse(localStorage.getItem(KEY)) || seed;
+        } catch (e) {
+          return seed;
+        }
+      }
+      function save() {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(clients));
+        } catch (e) {}
+      }
+      function esc(s) {
+        return String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      }
+      function toast(msg) {
+        const t = $("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        clearTimeout(t._t);
+        t._t = setTimeout(() => t.classList.remove("show"), 2200);
+      }
+
+      /* ---------- Theme ---------- */
+      function setTheme(t) {
+        document.documentElement.dataset.theme = t;
+        $("themeBtn").textContent = t === "dark" ? "☀️" : "🌙";
+        try {
+          localStorage.setItem(THEME, t);
+        } catch (e) {}
+      }
+      let saved = null;
+      try {
+        saved = localStorage.getItem(THEME);
+      } catch (e) {}
+      setTheme(
+        saved ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"),
+      );
+      $("themeBtn").onclick = () =>
+        setTheme(
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+        );
+
+      /* ---------- Render ---------- */
+      function filtered() {
+        const q = $("search").value.trim().toLowerCase(),
+          showInactive = $("showInactive").checked;
+        return clients.filter(
+          (c) =>
+            (showInactive || c.activo) &&
+            `${c.nombre} ${c.apellido} ${c.correo} ${c.telefono}`
+              .toLowerCase()
+              .includes(q),
+        );
+      }
+      function render() {
+        const list = filtered(),
+          pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+        if (page > pages) page = pages;
+        const rows = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+        $("tbody").innerHTML = rows
+          .map(
+            (c) => `
+    <tr class="${c.activo ? "" : "inactive"}">
+      <td>${c.id}</td><td>${esc(c.nombre)}</td><td>${esc(c.apellido)}</td><td>${esc(c.telefono)}</td><td>${esc(c.correo)}</td>
+      <td><span class="badge ${c.activo ? "activo" : "inactivo"}">${c.activo ? "active" : "inactive"}</span></td>
+      <td>${esc(c.por)}</td>
+      <td><div class="act">
+        <button class="edit" title="Edit" data-a="edit" data-id="${c.id}">✎</button>
+        ${
+          c.activo
+            ? `<button class="del" title="Disable client" data-a="disable" data-id="${c.id}">−</button>`
+            : `<button class="restore" title="Restore client" data-a="restore" data-id="${c.id}">↺</button>
+             <button class="del" title="Delete permanently" data-a="remove" data-id="${c.id}">🗑</button>`
+        }
+      </div></td>
+    </tr>`,
+          )
+          .join("");
+        $("empty").hidden = rows.length > 0;
+        $("pageInfo").textContent = `Page ${page} of ${pages}`;
+        $("prev").disabled = page <= 1;
+        $("next").disabled = page >= pages;
+        const act = clients.filter((c) => c.activo).length;
+        $("sTotal").textContent = clients.length;
+        $("sActive").textContent = act;
+        $("sInactive").textContent = clients.length - act;
+      }
+
+      /* ---------- Form ---------- */
+      const fields = ["nombre", "apellido", "telefono", "correo"];
+      function validate() {
+        let ok = true;
+        const v = {};
+        fields.forEach((f) => (v[f] = $(f).value.trim()));
+        const errs = {
+          nombre:
+            v.nombre.length < 2 ? "Enter a first name (min. 2 letters)." : "",
+          apellido:
+            v.apellido.length < 2 ? "Enter a last name (min. 2 letters)." : "",
+          telefono: !/^[0-9+\-\s]{6,15}$/.test(v.telefono)
+            ? "Enter a valid phone number."
+            : "",
+          correo: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.correo)
+            ? "Enter a valid email."
+            : clients.some(
+                  (c) =>
+                    c.correo.toLowerCase() === v.correo.toLowerCase() &&
+                    c.id !== editId,
+                )
+              ? "This email is already registered."
+              : "",
+        };
+        fields.forEach((f) => {
+          document.querySelector(`[data-for="${f}"]`).textContent = errs[f];
+          if (errs[f]) ok = false;
+        });
+        return ok ? v : null;
+      }
+      function resetForm() {
+        $("form").reset();
+        editId = null;
+        $("formTitle").textContent = "New client";
+        $("submitBtn").textContent = "Add client";
+        $("cancelBtn").hidden = true;
+        document.querySelectorAll(".err").forEach((e) => (e.textContent = ""));
+      }
+      $("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const v = validate();
+        if (!v) return;
+        if (editId) {
+          Object.assign(
+            clients.find((c) => c.id === editId),
+            v,
+          );
+          toast("Client updated");
+        } else {
+          const id = clients.reduce((m, c) => Math.max(m, c.id), 0) + 1;
+          clients.push({ id, ...v, activo: true, por: "Admin" });
+          toast("Client added");
+          page = Math.ceil(filtered().length / PER_PAGE);
+        }
+        save();
+        resetForm();
+        render();
+      });
+      $("cancelBtn").onclick = resetForm;
+
+      /* ---------- Table actions ---------- */
+      function ask(text, fn) {
+        $("confirmText").textContent = text;
+        pendingAction = fn;
+        $("confirm").showModal();
+      }
+      $("noBtn").onclick = () => $("confirm").close();
+      $("yesBtn").onclick = () => {
+        $("confirm").close();
+        pendingAction && pendingAction();
+        pendingAction = null;
+      };
+
+      $("tbody").addEventListener("click", (e) => {
+        const b = e.target.closest("button");
+        if (!b) return;
+        const id = +b.dataset.id,
+          c = clients.find((x) => x.id === id);
+        switch (b.dataset.a) {
+          case "edit":
+            editId = id;
+            fields.forEach((f) => ($(f).value = c[f]));
+            $("formTitle").textContent = `Edit client #${id}`;
+            $("submitBtn").textContent = "Save changes";
+            $("cancelBtn").hidden = false;
+            $("nombre").focus();
+            break;
+          case "disable":
+            ask(
+              `Disable ${c.nombre} ${c.apellido}? You can restore them later.`,
+              () => {
+                c.activo = false;
+                save();
+                render();
+                toast("Client disabled");
+              },
+            );
+            break;
+          case "restore":
+            c.activo = true;
+            save();
+            render();
+            toast("Client restored");
+            break;
+          case "remove":
+            ask(
+              `Permanently delete ${c.nombre} ${c.apellido}? This cannot be undone.`,
+              () => {
+                clients = clients.filter((x) => x.id !== id);
+                if (editId === id) resetForm();
+                save();
+                render();
+                toast("Client deleted");
+              },
+            );
+            break;
+        }
+      });
+
+      /* ---------- Filters, paging, report ---------- */
+      $("search").oninput = () => {
+        page = 1;
+        render();
+      };
+      $("showInactive").onchange = () => {
+        page = 1;
+        render();
+      };
+      $("prev").onclick = () => {
+        page--;
+        render();
+      };
+      $("next").onclick = () => {
+        page++;
+        render();
+      };
+      $("pdfBtn").onclick = () => {
+        $("showInactive").checked = true;
+        $("search").value = "";
+        render();
+        window.print();
+      };
+
+      render();
+    </script>
+  </body>
+</html>

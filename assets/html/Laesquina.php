@@ -63,7 +63,7 @@
       <a class="nav-item" href="#produccion-primaria"><svg class="ic"><use href="#i-flame"/></svg><span>Producción primaria</span></a>
       <a class="nav-item" href="#produccion-secundaria"><svg class="ic"><use href="#i-package"/></svg><span>Producción secundaria</span></a>
       <a class="nav-item" href="#ventas"><svg class="ic"><use href="#i-cash"/></svg><span>Ventas</span></a>
-      <a class="nav-item" href="#facturas"><svg class="ic"><use href="#i-receipt"/></svg><span>Facturas</span></a>
+      <!---<a class="nav-item" href="#facturas"><svg class="ic"><use href="#i-receipt"/></svg><span>Facturas</span></a> --->
 
       <span class="nav-label">Inventario</span>
       <a class="nav-item" href="inventario.html">
@@ -78,12 +78,12 @@
       <a class="nav-item" href="#mermas"><svg class="ic"><use href="#i-alert"/></svg><span>Mermas</span></a>
 
       <span class="nav-label">Terceros</span>
-      <a class="nav-item" href="#proveedores"><svg class="ic"><use href="#i-truck"/></svg><span>Proveedores</span></a>
-      <a class="nav-item" href="#clientes"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
+      <a class="nav-item" href="Proveedores.html"><svg class="ic"><use href="#i-truck"/></svg><span>Proveedores</span></a>
+      <a class="nav-item" href="Clientes.html"><svg class="ic"><use href="#i-users"/></svg><span>Clientes</span></a>
 
       <span class="nav-label">Configuración</span>
-      <a class="nav-item" href="#categorias"><svg class="ic"><use href="#i-grid"/></svg><span>Categorías</span></a>
-      <a class="nav-item" href="#unidades"><svg class="ic"><use href="#i-ruler"/></svg><span>Unidades de medida</span></a>
+      <!---<a class="nav-item" href="#categorias"><svg class="ic"><use href="#i-grid"/></svg><span>Categorías</span></a>--->
+     <!--- <a class="nav-item" href="#unidades"><svg class="ic"><use href="#i-ruler"/></svg><span>Unidades de medida</span></a>-->
       <a class="nav-item" href="#usuarios"><svg class="ic"><use href="#i-shield"/></svg><span>Usuarios y roles</span></a>
       <a class="nav-item" href="#reportes"><svg class="ic"><use href="#i-chart"/></svg><span>Reportes y costos</span></a>
     </nav>

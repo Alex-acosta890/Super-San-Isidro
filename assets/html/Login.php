@@ -20,7 +20,7 @@
         <input
           type="text"
           name="usuario"
-          placeholder="Usuario (Ej: John Doe)"
+          placeholder="Usuario (Ej: Admin)"
           required
         >
       </div>

@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Proveedores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #f3ebd8;
+        --white: #ffffff;
+        --blue: #3b6fe0;
+        --navy: #12264a;
+        --bg: var(--cream);
+        --surface: var(--white);
+        --text: var(--navy);
+        --muted: #5b6b88;
+        --line: #e3d8bf;
+        --accent: var(--blue);
+        --on-accent: #fff;
+        --tile: var(--navy);
+        --tile-text: var(--cream);
+        --shadow: 0 10px 24px -12px rgba(18, 38, 74, 0.35);
+      }
+      [data-theme="dark"] {
+        --bg: #0c1830;
+        --surface: #15284a;
+        --text: #f3ebd8;
+        --muted: #97a7c4;
+        --line: #243a63;
+        --accent: #6c9bff;
+        --on-accent: #0c1830;
+        --tile: #f3ebd8;
+        --tile-text: #12264a;
+        --shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.7);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      body {
+        font-family: "Bricolage Grotesque", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        transition:
+          background 0.3s,
+          color 0.3s;
+      }
+      button,
+      input,
+      select {
+        font: inherit;
+        color: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 28px 20px 80px;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+      }
+      .sub {
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .icon-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 2px solid var(--line);
+        background: var(--surface);
+        display: grid;
+        place-items: center;
+        font-size: 1.1rem;
+      }
+      .btn {
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 22px;
+        font-weight: 600;
+        background: var(--accent);
+        color: var(--on-accent);
+        transition: transform 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 2px solid var(--line);
+        color: var(--text);
+      }
+      .btn.danger {
+        background: #c0392b;
+        color: #fff;
+      }
+
+      .toolbar {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: 28px 0 8px;
+      }
+      .search {
+        flex: 1 1 240px;
+        border-radius: 999px;
+        border: 2px solid var(--line);
+        background: var(--surface);
+        padding: 12px 18px;
+      }
+      .chips {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .chip {
+        border-radius: 999px;
+        border: 2px solid var(--line);
+        background: transparent;
+        padding: 10px 16px;
+        font-weight: 600;
+      }
+      .chip[aria-pressed="true"] {
+        background: var(--navy);
+        border-color: var(--navy);
+        color: var(--cream);
+      }
+      [data-theme="dark"] .chip[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--on-accent);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 34px 22px;
+        margin-top: 34px;
+      }
+
+      /* card = status tab + body, like the reference */
+      .card {
+        position: relative;
+      }
+      .tab {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px 14px;
+        margin-bottom: -8px;
+        border-radius: 18px 18px 0 0;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .tab i {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .s-activo {
+        background: var(--accent);
+        color: var(--on-accent);
+      }
+      .s-pendiente {
+        background: var(--cream);
+        color: var(--navy);
+        border: 2px solid var(--line);
+        border-bottom: 0;
+      }
+      .s-inactivo {
+        background: var(--navy);
+        color: var(--cream);
+        border: 2px solid var(--line);
+        border-bottom: 0;
+      }
+      .body {
+        position: relative;
+        background: var(--surface);
+        border-radius: 0 26px 26px 26px;
+        padding: 18px;
+        box-shadow: var(--shadow);
+        border: 2px solid var(--line);
+      }
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .tile {
+        flex: none;
+        width: 56px;
+        height: 56px;
+        border-radius: 18px 18px 18px 6px;
+        background: var(--tile);
+        color: var(--tile-text);
+        display: grid;
+        place-items: center;
+        font-weight: 800;
+        font-size: 1.25rem;
+      }
+      .top h3 {
+        font-size: 1.1rem;
+        line-height: 1.2;
+      }
+      .top p {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .menu {
+        margin-left: auto;
+        position: relative;
+      }
+      .menu > button {
+        background: none;
+        border: 0;
+        font-size: 1.4rem;
+        line-height: 1;
+        padding: 4px 8px;
+        border-radius: 10px;
+      }
+      .pop {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: var(--surface);
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 6px;
+        display: none;
+        z-index: 5;
+        min-width: 130px;
+      }
+      .menu.open .pop {
+        display: block;
+      }
+      .pop button {
+        display: block;
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: 0;
+        padding: 9px 12px;
+        border-radius: 9px;
+      }
+      .pop button:hover {
+        background: var(--bg);
+      }
+      .info {
+        margin-top: 16px;
+        display: grid;
+        gap: 6px;
+        font-size: 0.92rem;
+        color: var(--muted);
+      }
+      .info b {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 16px;
+        gap: 10px;
+      }
+      .stars {
+        color: var(--accent);
+        letter-spacing: 2px;
+      }
+      .bar {
+        flex: 1;
+        max-width: 110px;
+        height: 6px;
+        border-radius: 9px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .bar span {
+        display: block;
+        height: 100%;
+        background: var(--accent);
+      }
+
+      .empty {
+        grid-column: 1/-1;
+        text-align: center;
+        padding: 50px 20px;
+        color: var(--muted);
+      }
+
+      /* modal */
+      dialog {
+        border: 0;
+        position: absolute;
+        left: 35%;
+        top: 10%;
+        border-radius: 28px;
+        padding: 26px;
+        width: min(480px, 92vw);
+        background: var(--surface);
+        color: var(--text);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+      }
+      dialog::backdrop {
+        background: rgba(11, 21, 41, 0.73);
+        backdrop-filter: blur(3px);
+      }
+      dialog h2 {
+        margin-bottom: 16px;
+      }
+      label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin: 12px 0 6px;
+      }
+      .field {
+        width: 100%;
+        border-radius: 14px;
+        border: 2px solid var(--line);
+        background: var(--bg);
+        padding: 11px 14px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .btns {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 22px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div>
+          <h1>Proveedores</h1>
+          <p class="sub" id="count"></p>
+        </div>
+        <div class="actions">
+          <button class="icon-btn" id="theme" aria-label="Cambiar modo oscuro">
+            🌙
+          </button>
+          <button class="btn" id="add">Nuevo proveedor</button>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <input
+          class="search"
+          id="q"
+          type="search"
+          placeholder="Buscar por nombre, servicio o ciudad"
+          aria-label="Buscar"
+        />
+        <div class="chips" id="chips">
+          <button class="chip" data-f="todos" aria-pressed="true">Todos</button>
+          <button class="chip" data-f="activo" aria-pressed="false">
+            Activos
+          </button>
+          <button class="chip" data-f="pendiente" aria-pressed="false">
+            Pendientes
+          </button>
+          <button class="chip" data-f="inactivo" aria-pressed="false">
+            Inactivos
+          </button>
+        </div>
+      </div>
+
+      <section class="grid" id="grid" aria-live="polite"></section>
+    </div>
+
+    <dialog id="form-dlg">
+      <form id="form" method="dialog">
+        <h2 id="form-title">Nuevo proveedor</h2>
+        <label for="f-name">Nombre o empresa</label>
+        <input class="field" id="f-name" required maxlength="60" />
+        <label for="f-service">Servicio o trabajo</label>
+        <input
+          class="field"
+          id="f-service"
+          required
+          maxlength="60"
+          placeholder="Plomería, diseño, transporte..."
+        />
+        <div class="row">
+          <div>
+            <label for="f-phone">Teléfono</label
+            ><input class="field" id="f-phone" maxlength="30" />
+          </div>
+          <div>
+            <label for="f-city">Ciudad</label
+            ><input class="field" id="f-city" maxlength="40" />
+          </div>
+        </div>
+        <label for="f-email">Correo</label>
+        <input class="field" id="f-email" type="email" maxlength="80" />
+        <div class="row">
+          <div>
+            <label for="f-status">Estado</label>
+            <select class="field" id="f-status">
+              <option value="activo">Activo</option>
+              <option value="pendiente">Pendiente</option>
+              <option value="inactivo">Inactivo</option>
+            </select>
+          </div>
+          <div>
+            <label for="f-rating">Calificación</label>
+            <select class="field" id="f-rating">
+              <option>5</option>
+              <option>4</option>
+              <option>3</option>
+              <option>2</option>
+              <option>1</option>
+            </select>
+          </div>
+        </div>
+        <div class="btns">
+          <button type="button" class="btn ghost" id="cancel">Cancelar</button>
+          <button type="submit" class="btn">Guardar proveedor</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="del-dlg">
+      <h2>Eliminar proveedor</h2>
+      <p id="del-text" style="color: var(--muted)"></p>
+      <div class="btns">
+        <button class="btn ghost" id="del-no">Cancelar</button>
+        <button class="btn danger" id="del-yes">Eliminar</button>
+      </div>
+    </dialog>
+
+    <script>
+      const KEY = "proveedores_v1";
+      const seed = [
+        {
+          id: 1,
+          name: "Aqua Plus",
+          service: "Plomería",
+          phone: "+505 8888 1020",
+          city: "Managua",
+          email: "hola@aquaplus.com",
+          status: "activo",
+          rating: 5,
+        },
+        {
+          id: 2,
+          name: "Estudio Tinta",
+          service: "Diseño gráfico",
+          phone: "+505 8123 4567",
+          city: "León",
+          email: "contacto@tinta.studio",
+          status: "pendiente",
+          rating: 4,
+        },
+        {
+          id: 3,
+          name: "Rutas Norte",
+          service: "Transporte de carga",
+          phone: "+505 7777 9090",
+          city: "Estelí",
+          email: "",
+          status: "activo",
+          rating: 4,
+        },
+        {
+          id: 4,
+          name: "Clima Fresco",
+          service: "Aire acondicionado",
+          phone: "+505 8555 3030",
+          city: "Granada",
+          email: "info@climafresco.com",
+          status: "inactivo",
+          rating: 3,
+        },
+      ];
+      let data = load(),
+        filter = "todos",
+        query = "",
+        editId = null,
+        delId = null;
+
+      function load() {
+        try {
+          return JSON.parse(localStorage.getItem(KEY)) || seed;
+        } catch {
+          return seed;
+        }
+      }
+      function save() {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(data));
+        } catch {}
+      }
+      const $ = (s) => document.querySelector(s);
+      const esc = (s) =>
+        String(s).replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
+      const label = {
+        activo: "Activo",
+        pendiente: "Pendiente",
+        inactivo: "Inactivo",
+      };
+
+      function render() {
+        const q = query.toLowerCase();
+        const list = data.filter(
+          (p) =>
+            (filter === "todos" || p.status === filter) &&
+            [p.name, p.service, p.city].join(" ").toLowerCase().includes(q),
+        );
+        $("#count").textContent =
+          data.length +
+          (data.length === 1
+            ? " proveedor registrado"
+            : " proveedores registrados");
+        $("#grid").innerHTML = list.length
+          ? list
+              .map(
+                (p) => `
+    <article class="card">
+      <span class="tab s-${p.status}"><i></i>${label[p.status]}</span>
+      <div class="body">
+        <div class="top">
+          <div class="tile">${esc(p.name.trim().slice(0, 1).toUpperCase())}</div>
+          <div><h3>${esc(p.name)}</h3><p>${esc(p.service)}</p></div>
+          <div class="menu">
+            <button aria-label="Opciones de ${esc(p.name)}" data-menu="${p.id}">⋮</button>
+            <div class="pop">
+              <button data-edit="${p.id}">Editar</button>
+              <button data-del="${p.id}">Eliminar</button>
+            </div>
+          </div>
+        </div>
+        <div class="info">
+          ${p.phone ? `<span><b>Tel:</b> ${esc(p.phone)}</span>` : ""}
+          ${p.email ? `<span><b>Correo:</b> ${esc(p.email)}</span>` : ""}
+          ${p.city ? `<span><b>Ciudad:</b> ${esc(p.city)}</span>` : ""}
+        </div>
+        <div class="foot">
+          <span class="stars" aria-label="${p.rating} de 5">${"★".repeat(p.rating)}${"☆".repeat(5 - p.rating)}</span>
+          <div class="bar"><span style="width:${p.rating * 20}%"></span></div>
+        </div>
+      </div>
+    </article>`,
+              )
+              .join("")
+          : `<p class="empty">No hay proveedores con ese filtro. Crea uno nuevo con el botón de arriba.</p>`;
+      }
+
+      /* grid events */
+      $("#grid").addEventListener("click", (e) => {
+        const m = e.target.closest("[data-menu]");
+        if (m) {
+          const box = m.parentElement,
+            was = box.classList.contains("open");
+          document
+            .querySelectorAll(".menu.open")
+            .forEach((x) => x.classList.remove("open"));
+          if (!was) box.classList.add("open");
+          return;
+        }
+        const ed = e.target.closest("[data-edit]");
+        if (ed) openForm(+ed.dataset.edit);
+        const de = e.target.closest("[data-del]");
+        if (de) {
+          delId = +de.dataset.del;
+          const p = data.find((x) => x.id === delId);
+          $("#del-text").textContent =
+            `Se eliminará "${p.name}". Esta acción no se puede deshacer.`;
+          $("#del-dlg").showModal();
+        }
+      });
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest(".menu"))
+          document
+            .querySelectorAll(".menu.open")
+            .forEach((x) => x.classList.remove("open"));
+      });
+
+      /* form */
+      function openForm(id = null) {
+        editId = id;
+        const p = data.find((x) => x.id === id) || {
+          name: "",
+          service: "",
+          phone: "",
+          city: "",
+          email: "",
+          status: "activo",
+          rating: 5,
+        };
+        $("#form-title").textContent = id
+          ? "Editar proveedor"
+          : "Nuevo proveedor";
+        $("#f-name").value = p.name;
+        $("#f-service").value = p.service;
+        $("#f-phone").value = p.phone;
+        $("#f-city").value = p.city;
+        $("#f-email").value = p.email;
+        $("#f-status").value = p.status;
+        $("#f-rating").value = p.rating;
+        $("#form-dlg").showModal();
+        $("#f-name").focus();
+      }
+      $("#add").onclick = () => openForm();
+      $("#cancel").onclick = () => $("#form-dlg").close();
+      $("#form").addEventListener("submit", () => {
+        const p = {
+          name: $("#f-name").value.trim(),
+          service: $("#f-service").value.trim(),
+          phone: $("#f-phone").value.trim(),
+          city: $("#f-city").value.trim(),
+          email: $("#f-email").value.trim(),
+          status: $("#f-status").value,
+          rating: +$("#f-rating").value,
+        };
+        if (editId)
+          data = data.map((x) => (x.id === editId ? { ...x, ...p } : x));
+        else data.unshift({ id: Date.now(), ...p });
+        save();
+        render();
+      });
+
+      /* delete */
+      $("#del-no").onclick = () => $("#del-dlg").close();
+      $("#del-yes").onclick = () => {
+        data = data.filter((x) => x.id !== delId);
+        save();
+        render();
+        $("#del-dlg").close();
+      };
+
+      /* search + filters */
+      $("#q").addEventListener("input", (e) => {
+        query = e.target.value;
+        render();
+      });
+      $("#chips").addEventListener("click", (e) => {
+        const c = e.target.closest(".chip");
+        if (!c) return;
+        filter = c.dataset.f;
+        document
+          .querySelectorAll(".chip")
+          .forEach((x) => x.setAttribute("aria-pressed", x === c));
+        render();
+      });
+
+      /* theme */
+      function setTheme(t) {
+        document.documentElement.dataset.theme = t;
+        $("#theme").textContent = t === "dark" ? "☀️" : "🌙";
+        try {
+          localStorage.setItem("tema", t);
+        } catch {}
+      }
+      let saved = null;
+      try {
+        saved = localStorage.getItem("tema");
+      } catch {}
+      setTheme(
+        saved ||
+          (matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light"),
+      );
+      $("#theme").onclick = () =>
+        setTheme(
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark",
+        );
+
+      render();
+    </script>
+  </body>
+</html>
